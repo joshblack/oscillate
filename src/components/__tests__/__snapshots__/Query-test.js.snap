@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Query Component render children should render 1`] = `
+<EnvironmentProvider>
+  <Query
+    cacheConfig={
+      Object {
+        "forceFetch": false,
+      }
+    }
+    path="/api/resources"
+    renderLoader={[Function]}
+  >
+    <div>
+      foo: 
+      bar
+    </div>
+  </Query>
+</EnvironmentProvider>
+`;
+
+exports[`Query Component render prop should render 1`] = `
+<EnvironmentProvider>
+  <Query
+    cacheConfig={
+      Object {
+        "forceFetch": false,
+      }
+    }
+    path="/api/resources"
+    render={[Function]}
+    renderLoader={[Function]}
+  >
+    <div>
+      foo: 
+      bar
+    </div>
+  </Query>
+</EnvironmentProvider>
+`;
+
+exports[`Query Component renderError prop should render 1`] = `
+<EnvironmentProvider>
+  <Query
+    cacheConfig={
+      Object {
+        "forceFetch": false,
+      }
+    }
+    path="/api/resources"
+    render={[Function]}
+    renderError={[Function]}
+    renderLoader={[Function]}
+  >
+    <div>
+      Error
+    </div>
+  </Query>
+</EnvironmentProvider>
+`;
+
+exports[`Query Component renderLoader prop should render 1`] = `
+<div>
+  Loader
+</div>
+`;

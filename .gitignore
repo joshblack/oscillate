@@ -1,0 +1,32 @@
+# Ignore generated folders
+node_modules/
+dist/
+coverage/
+build/
+/lib
+src-old/
+
+# Ignore OS Specific files
+.DS_Store
+
+# Ignore error logs
+npm-debug.log
+selenium-debug.log
+yarn-error.log
+
+# Ignore WebStorm files
+.idea/
+
+# Ignore Maven files
+node/
+target/
+
+### Eclipse ###
+.classpath
+.project
+.factorypath
+.settings/
+bin/
+logs/
+/.gradle/
+/docker_info.properties
