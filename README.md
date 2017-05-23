@@ -1,4 +1,4 @@
-# `spectrum`
+# `spectrum` [![Build Status](https://travis-ci.org/joshblack/spectrum.svg?branch=master)](https://travis-ci.org/joshblack/spectrum)
 
 > Spectrum is an opinionated data-layer for component-based applications that
 > leverage traditional API calls for satisfying their data needs.
