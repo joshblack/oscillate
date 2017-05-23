@@ -11,3 +11,6 @@ script:
   - yarn lint
   - yarn flow
   - yarn test -- --runInBand
+
+notifications:
+  email: false
