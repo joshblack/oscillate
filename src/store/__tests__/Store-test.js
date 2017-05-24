@@ -16,6 +16,7 @@ describe('Store', () => {
   let fetch;
   let Store;
   let NetworkQuery;
+  let NetworkMutation;
   let NetworkLayer;
 
   beforeEach(() => {
@@ -24,6 +25,7 @@ describe('Store', () => {
     fetch = require('fbjs/lib/fetchWithRetries');
     Store = require('../Store').default;
     NetworkQuery = require('../../network/NetworkQuery');
+    NetworkMutation = require('../../network/NetworkMutation');
     NetworkLayer = require('../../network/NetworyLayer').default;
   });
 
@@ -253,7 +255,94 @@ describe('Store', () => {
     });
   });
 
-  describe('#write', () => {});
+  describe('#write', () => {
+    it('should return a promise', () => {
+      const mutation = NetworkMutation.create({
+        path: '/api/resources',
+        body: {
+          foo: 'bar',
+        },
+      });
+      const key = NetworkMutation.hash(mutation);
+      const store = new Store();
+      store.injectNetworkLayer(NetworkLayer);
+
+      const promise = store.write(mutation, key, {});
+
+      expect(promise.then).toBeDefined();
+      expect(promise.catch).toBeDefined();
+    });
+
+    it('should send a mutation and resolve with the response', async () => {
+      const mutation = NetworkMutation.create({
+        path: '/api/resources',
+        body: {
+          foo: 'bar',
+        },
+      });
+      const key = NetworkMutation.hash(mutation);
+      const store = new Store();
+      store.injectNetworkLayer(NetworkLayer);
+
+      const promise = store.write(mutation, key, {});
+
+      fetch.mock.deferreds[0].resolve(
+        genResponse({
+          foo: 'bar',
+        }),
+      );
+
+      expect(await promise).toEqual({
+        foo: 'bar',
+      });
+    });
+
+    it('should reject with an error if something goes wrong', async () => {
+      const mutation = NetworkMutation.create({
+        path: '/api/resources',
+        body: {
+          foo: 'bar',
+        },
+      });
+      const key = NetworkMutation.hash(mutation);
+      const store = new Store();
+      store.injectNetworkLayer(NetworkLayer);
+
+      const promise = store.write(mutation, key, {});
+
+      fetch.mock.deferreds[0].resolve(
+        genFailureResponse({
+          error: 'Error',
+        }),
+      );
+
+      try {
+        await promise;
+      } catch (error) {
+        expect(error).toBeDefined();
+      }
+    });
+
+    it('should resolve from cache if cacheConfig is not set to forceFetch', async () => {
+      const value = {foo: 'bar'};
+      const mutation = NetworkMutation.create({
+        path: '/api/resources',
+        body: {
+          foo: 'bar',
+        },
+      });
+      const key = NetworkMutation.hash(mutation);
+      const store = new Store();
+      store.injectNetworkLayer(NetworkLayer);
+
+      const promise1 = store.write(mutation, key, {forceFetch: true});
+      fetch.mock.deferreds[0].resolve(genResponse(value));
+      await promise1;
+
+      const promise2 = store.write(mutation, key, {forceFetch: false});
+      expect(await promise2).toEqual(value);
+    });
+  });
 
   describe('#peak', () => {});
 
