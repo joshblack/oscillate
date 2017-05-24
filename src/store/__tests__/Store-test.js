@@ -437,10 +437,10 @@ describe('Store', () => {
   });
 
   describe('#rehydrate', () => {
-    // eslint-disable-next-line max-len
     const size = 100;
     const ttl = 100000;
     const numberOfEntries = 3;
+    // eslint-disable-next-line max-len
     const source =
       '{"size":100,"ttl":100000,"cache":{"GET /api/1":{"foo":"bar1"},"GET /api/2":{"foo":"bar2"},"POST /api/resources":{"foo":"bar3"}}}';
 

@@ -79,6 +79,12 @@ export default class SpectrumEnvironment implements Environment {
   preload = (): Promise<mixed> => {
     const pendingRequests = pendingQueries.map(this.sendQuery);
     pendingQueries = [];
-    return Promise.all(pendingRequests);
+    return new Promise((resolve, reject) => {
+      Promise.all(pendingRequests)
+        .then(() => {
+          resolve(this._store.dehydrate());
+        }, reject)
+        .catch(reject);
+    });
   };
 }

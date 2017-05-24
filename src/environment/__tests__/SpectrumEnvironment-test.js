@@ -486,7 +486,7 @@ describe('Environment', () => {
         });
       });
 
-      await promise;
+      expect(await promise).toMatchSnapshot();
 
       // TODO: clean up chain here so we don't rely on internals
       expect(env._store._cache._cache.size).toBe(2);
