@@ -134,6 +134,35 @@ export default class SpectrumStore implements Store {
     throw new Error('Unable to find entry for key: ' + key);
   }
 
-  // dehydrate(): string {}
-  // rehydrate(value: string): void {}
+  dehydrate(): string {
+    const cache = {};
+
+    this._cache.getEntries().forEach((value, key) => {
+      cache[key] = value._value;
+    });
+
+    return JSON.stringify({
+      size: this._cache._size,
+      ttl: this._cache._ttl,
+      cache,
+    });
+  }
+
+  rehydrate(value: string): void {
+    try {
+      const {size, ttl, cache} = JSON.parse(value);
+      this._cache = new Cache(size, ttl);
+
+      Object.keys(cache).forEach(key => {
+        const entry = new CacheEntry(cache[key]);
+        this._cache.set(key, entry);
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  getCache(): Cache {
+    return this._cache;
+  }
 }

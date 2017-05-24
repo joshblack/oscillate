@@ -344,9 +344,124 @@ describe('Store', () => {
     });
   });
 
-  describe('#peak', () => {});
+  describe('#peak', () => {
+    let store;
+    let query1;
+    let key1;
+    let query2;
+    let key2;
+    let mutation1;
+    let key3;
+    const response1 = {foo: 'bar1'};
+    const response2 = {foo: 'bar2'};
+    const response3 = {foo: 'bar3'};
 
-  describe('#dehydrate', () => {});
+    // Pre-populate the store with a couple of queries
+    beforeEach(async () => {
+      store = new Store();
+      store.injectNetworkLayer(NetworkLayer);
 
-  describe('#rehydrate', () => {});
+      query1 = NetworkQuery.create('/api/1');
+      key1 = NetworkQuery.hash(query1);
+      query2 = NetworkQuery.create('/api/2');
+      key2 = NetworkQuery.hash(query2);
+      mutation1 = NetworkMutation.create({path: '/api/resources'});
+      key3 = NetworkMutation.hash(mutation1);
+
+      const promise1 = store.read(query1, key1, {});
+      const promise2 = store.read(query2, key2, {});
+      const promise3 = store.write(mutation1, key3, {});
+
+      fetch.mock.deferreds[0].resolve(genResponse(response1));
+      fetch.mock.deferreds[1].resolve(genResponse(response2));
+      fetch.mock.deferreds[2].resolve(genResponse(response3));
+
+      await promise1;
+      await promise2;
+      await promise3;
+    });
+
+    it('should synchronously resolve a request for a query', () => {
+      expect(store.peak(key1)).toEqual(response1);
+    });
+
+    it('should synchronously resolve a request for a mutation', () => {
+      expect(store.peak(key3)).toEqual(response3);
+    });
+
+    it('should throw if it cannot find an entry', () => {
+      expect(() => store.peak('foo')).toThrow();
+    });
+  });
+
+  describe('#dehydrate', () => {
+    let store;
+    let query1;
+    let key1;
+    let query2;
+    let key2;
+    let mutation1;
+    let key3;
+    const response1 = {foo: 'bar1'};
+    const response2 = {foo: 'bar2'};
+    const response3 = {foo: 'bar3'};
+
+    // Pre-populate the store with a couple of queries
+    beforeEach(async () => {
+      store = new Store();
+      store.injectNetworkLayer(NetworkLayer);
+
+      query1 = NetworkQuery.create('/api/1');
+      key1 = NetworkQuery.hash(query1);
+      query2 = NetworkQuery.create('/api/2');
+      key2 = NetworkQuery.hash(query2);
+      mutation1 = NetworkMutation.create({path: '/api/resources'});
+      key3 = NetworkMutation.hash(mutation1);
+
+      const promise1 = store.read(query1, key1, {});
+      const promise2 = store.read(query2, key2, {});
+      const promise3 = store.write(mutation1, key3, {});
+
+      fetch.mock.deferreds[0].resolve(genResponse(response1));
+      fetch.mock.deferreds[1].resolve(genResponse(response2));
+      fetch.mock.deferreds[2].resolve(genResponse(response3));
+
+      await promise1;
+      await promise2;
+      await promise3;
+    });
+
+    it('should synchronously serialize the given cache store to a string', () => {
+      expect(store.dehydrate()).toMatchSnapshot();
+    });
+  });
+
+  describe('#rehydrate', () => {
+    // eslint-disable-next-line max-len
+    const size = 100;
+    const ttl = 100000;
+    const numberOfEntries = 3;
+    const source =
+      '{"size":100,"ttl":100000,"cache":{"GET /api/1":{"foo":"bar1"},"GET /api/2":{"foo":"bar2"},"POST /api/resources":{"foo":"bar3"}}}';
+
+    it('should rebuild the Store with a given string', () => {
+      const store = new Store();
+      store.injectNetworkLayer(NetworkLayer);
+      store.rehydrate(source);
+
+      const cache = store.getCache();
+      expect(cache.getSize()).toBe(size);
+      expect(cache.getTTL()).toBe(ttl);
+      expect(cache.getEntries().size).toBe(numberOfEntries);
+    });
+
+    it('should throw if it cannot rehydrate from the given source', () => {
+      const store = new Store();
+      store.injectNetworkLayer(NetworkLayer);
+
+      expect(() => {
+        store.rehydrate('foo');
+      }).toThrow();
+    });
+  });
 });

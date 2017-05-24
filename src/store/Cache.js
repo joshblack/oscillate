@@ -13,6 +13,18 @@ export default class Cache {
     this._ttl = ttl;
   }
 
+  getSize(): number {
+    return this._size;
+  }
+
+  getTTL(): number {
+    return this._ttl;
+  }
+
+  getEntries(): Map<string, CacheEntry> {
+    return this._cache;
+  }
+
   clear(): void {
     this._cache.clear();
   }
