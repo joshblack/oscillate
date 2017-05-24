@@ -72,17 +72,12 @@ export default class SpectrumStore implements Store {
       if (entry) {
         const disposable = entry.addSubscriber(subscriber);
         subscriber.onSuccess(entry.getValue());
-
-        return {
-          dispose: () => {
-            disposable.dispose();
-          },
-        };
+        return disposable;
       }
     }
 
     let isDisposed = false;
-    const entry = new CacheEntry();
+    const entry = this._cache.get(key) || new CacheEntry();
     const disposable = entry.addSubscriber(subscriber);
     const dispose = () => {
       isDisposed = true;
@@ -93,10 +88,7 @@ export default class SpectrumStore implements Store {
       .sendQuery(networkQuery)
       .then(response => {
         entry.setValue(response);
-
         this._cache.set(key, entry);
-
-        !isDisposed && subscriber.onSuccess(response);
       })
       .catch(error => {
         !isDisposed && subscriber.onFailure(error);
@@ -141,4 +133,7 @@ export default class SpectrumStore implements Store {
 
     throw new Error('Unable to find entry for key: ' + key);
   }
+
+  // dehydrate(): string {}
+  // rehydrate(value: string): void {}
 }

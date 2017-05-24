@@ -99,7 +99,7 @@ describe('Environment', () => {
       expect(subscription.onFailure).not.toHaveBeenCalled();
     });
 
-    it('should update subscribers when a cache entry is updated', async () => {
+    it('should update subscribers when a cache entry is updated', done => {
       const subscriber = {
         onSuccess: jest.fn(),
         onFailure: jest.fn(),
@@ -119,23 +119,40 @@ describe('Environment', () => {
         json: () => Promise.resolve(response1),
       });
 
-      const response = env.sendQuery({
-        path: '/api/items',
-        params: {
-          first: 5,
-        },
-        cacheConfig: {
-          forceFetch: true,
-        },
+      // We have this crazy setTimeout pyramid in order to make sure the
+      // Promise queue has been flushed and our subscriber methods have been
+      // invoked. If there is a better way to do this, please help out!
+      setTimeout(() => {
+        try {
+          expect(subscriber.onSuccess).toHaveBeenCalledTimes(1);
+
+          env.sendQuery({
+            path: '/api/items',
+            params: {
+              first: 5,
+            },
+            cacheConfig: {
+              forceFetch: true,
+            },
+            ...subscriber,
+          });
+
+          fetch.mock.deferreds[1].resolve({
+            json: () => Promise.resolve(response2),
+          });
+
+          setTimeout(() => {
+            try {
+              expect(subscriber.onSuccess).toHaveBeenCalledTimes(3);
+              done();
+            } catch (error) {
+              done.fail(error);
+            }
+          });
+        } catch (error) {
+          done.fail(error);
+        }
       });
-
-      fetch.mock.deferreds[1].resolve({
-        json: () => Promise.resolve(response2),
-      });
-
-      await response;
-
-      expect(subscriber.onSuccess).toHaveBeenCalledTimes(2);
     });
 
     it('should be able to send a network query and get a response', async () => {

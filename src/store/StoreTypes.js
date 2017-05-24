@@ -35,4 +35,7 @@ export interface Store {
   ): Promise<mixed>,
 
   peak(key: string): mixed,
+
+  serialize(): string,
+  deserialize(source: string): void,
 }

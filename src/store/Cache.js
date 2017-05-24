@@ -7,7 +7,7 @@ export default class Cache {
   _size: number;
   _ttl: number;
 
-  constructor(size: number, ttl: number) {
+  constructor(size: number = 100, ttl: number = 30000) {
     this._cache = new Map();
     this._size = size;
     this._ttl = ttl;
@@ -30,7 +30,12 @@ export default class Cache {
   set(key: string, entry: CacheEntry): void {
     this._cache.delete(key);
     this._cache.set(key, entry);
-    // TODO: size
+    if (this._cache.size > this._size) {
+      const firstKey = this._cache.keys().next();
+      if (!firstKey.done) {
+        this._cache.delete(firstKey.value);
+      }
+    }
   }
 }
 
@@ -38,6 +43,6 @@ export default class Cache {
  * Determine whether a response fetched at `fetchTime` is still valid given
  * some `ttl`.
  */
-function isCurrent(cacheTime: number, ttl: number): boolean {
+export function isCurrent(cacheTime: number, ttl: number): boolean {
   return cacheTime + ttl >= Date.now();
 }
