@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "lib/index.js",
   "scripts": {
-    "build": "rimraf lib && babel -d lib --ignore=\"**/__tests__/**,**/__mocks__/**\" src",
+    "build": "rollup -c",
     "build:watch": "rimraf lib && babel -w -d lib --ignore=\"**/__tests__/**,**/__mocks__/**\" src",
     "commitmsg": "validate-commit-msg",
     "dev": "rimraf lib && babel -w -d lib --ignore=\"**/__tests__/**,**/__mocks__/**\" src",
@@ -51,6 +51,9 @@
     "react-test-renderer": "^15.5.4",
     "regenerator-runtime": "^0.10.3",
     "rimraf": "^2.6.1",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
     "validate-commit-msg": "^2.12.1",
     "webpack": "^2.2.1"
   },
