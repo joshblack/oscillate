@@ -148,9 +148,9 @@ export default class SpectrumStore implements Store {
     });
   }
 
-  rehydrate(value: string): void {
+  rehydrate(snapshot: string): void {
     try {
-      const {size, ttl, cache} = JSON.parse(value);
+      const {size, ttl, cache} = JSON.parse(snapshot);
       this._cache = new Cache(size, ttl);
 
       Object.keys(cache).forEach(key => {
