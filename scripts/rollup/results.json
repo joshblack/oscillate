@@ -1,0 +1,12 @@
+{
+  "bundleSizes": {
+    "spectrum.development.js": {
+      "size": 21621,
+      "gzip": 4967
+    },
+    "spectrum.production.js": {
+      "size": 11222,
+      "gzip": 3221
+    }
+  }
+}
