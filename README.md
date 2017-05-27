@@ -10,7 +10,7 @@ appropriate implementation, tests, and type definitions._
 
 - [x] `sendQuery` support
 - [x] `sendMutation` support
-- [ ] Proper Rollup bundle support
+- [x] Proper Rollup bundle support
 - [x] Server-side rendering support
 - [ ] `sendSubscription` support
 - [ ] Offline-storage support
