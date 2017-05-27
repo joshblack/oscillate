@@ -549,4 +549,26 @@ describe('Environment', () => {
       expect(pendingQueries.length).toBe(0);
     });
   });
+
+  describe('#rehydrate', () => {
+    it('should rehydrate the store with the given source', () => {
+      const storeSnapshot = JSON.stringify({
+        size: 10,
+        ttl: 1000,
+        cache: {
+          key: {
+            foo: 'bar',
+          },
+        },
+      });
+      env.rehydrate(storeSnapshot);
+
+      const cache = env._store.getCache();
+      const entries = cache.getEntries();
+
+      expect(cache.getTTL()).toBe(1000);
+      expect(cache.getSize()).toBe(10);
+      expect(entries.size).toBe(1);
+    });
+  });
 });
