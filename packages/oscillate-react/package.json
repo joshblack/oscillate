@@ -1,6 +1,6 @@
 {
   "name": "oscillate-react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React bindings for Oscillate.",
   "homepage": "https://github.com/joshblack/oscillate",
   "bugs": "https://github.com/joshblack/oscillate/issues",
@@ -17,8 +17,8 @@
     "fbjs": "^0.8.9"
   },
   "peerDependencies": {
+    "oscillate": "^0.1.0",
     "prop-types": "^15.5.8",
-    "react": "^15.4.2",
-    "oscillate": "^0.1.0"
+    "react": "^15.4.2"
   }
 }
