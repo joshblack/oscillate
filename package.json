@@ -1,7 +1,7 @@
 {
-  "name": "oscillate",
+  "name": "oscillate-build",
+  "private": true,
   "version": "0.1.0",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "build": "rimraf lib && node scripts/rollup/build.js",
@@ -14,10 +14,6 @@
     "prepublish": "yarn build",
     "test": "jest"
   },
-  "files": [
-    "index.js",
-    "lib/"
-  ],
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
@@ -33,6 +29,7 @@
     "babel-preset-stage-2": "^6.22.0",
     "chalk": "^1.1.3",
     "cli-table": "^0.3.1",
+    "enzyme": "^2.8.2",
     "enzyme-to-json": "^1.5.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
@@ -60,16 +57,10 @@
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-uglify": "^2.0.1",
     "validate-commit-msg": "^2.12.1",
-    "webpack": "^2.2.1"
-  },
-  "dependencies": {
-    "enzyme": "^2.8.2",
-    "fbjs": "^0.8.9"
-  },
-  "peerDependencies": {
+    "webpack": "^2.2.1",
     "prop-types": "^15.5.8",
     "react": "^15.4.2",
-    "whatwg-fetch": "^2.0.3"
+    "fbjs": "^0.8.9"
   },
   "config": {
     "validate-commit-msg": {

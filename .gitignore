@@ -3,7 +3,7 @@ node_modules/
 dist/
 coverage/
 build/
-/lib
+lib
 src-old/
 
 # Ignore OS Specific files
