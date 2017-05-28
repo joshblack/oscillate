@@ -8,10 +8,7 @@ const uglify = require('rollup-plugin-uglify');
 const sizes = require('./plugins/sizes-plugin');
 const stats = require('./stats');
 
-const entry = path.resolve(__dirname, '../../src/index.js');
 const external = [
-  'react',
-  'prop-types',
   'fbjs/lib/areEqual',
   'fbjs/lib/invariant',
   'fbjs/lib/fetchWithRetries',
@@ -23,10 +20,13 @@ const babelConfig = {
   externalHelpers: true,
 };
 
+const oscillateEntry = path.resolve(__dirname, '../../src/index.js');
+const oscillateReactEntry = path.resolve(__dirname, '../../src/components/index.js');
 const bundles = [
   {
-    filename: 'spectrum.development.js',
-    entry,
+    packageName: 'oscillate',
+    filename: 'oscillate.development.js',
+    entry: oscillateEntry,
     external,
     plugins: [
       babel(babelConfig),
@@ -34,9 +34,48 @@ const bundles = [
     format: 'cjs',
   },
   {
-    filename: 'spectrum.production.js',
-    entry,
+    packageName: 'oscillate',
+    filename: 'oscillate.production.js',
+    entry: oscillateEntry,
     external,
+    plugins: [
+      babel(babelConfig),
+      uglify({
+        warnings: false,
+        compress: {
+          dead_code: true,
+          unused: true,
+          drop_debugger: true,
+          evaluate: true,
+          booleans: true,
+        },
+      }),
+    ],
+    format: 'cjs',
+  },
+  {
+    packageName: 'oscillate-react',
+    filename: 'oscillate-react.development.js',
+    entry: oscillateReactEntry,
+    external: [
+      ...external,
+      'react',
+      'prop-types',
+    ],
+    plugins: [
+      babel(babelConfig),
+    ],
+    format: 'cjs',
+  },
+  {
+    packageName: 'oscillate-react',
+    filename: 'oscillate-react.production.js',
+    entry: oscillateReactEntry,
+    external: [
+      ...external,
+      'react',
+      'prop-types',
+    ],
     plugins: [
       babel(babelConfig),
       uglify({
@@ -55,7 +94,7 @@ const bundles = [
 ];
 
 const steps = bundles.map((bundle) => {
-  const {filename, entry, external, plugins, format} = bundle;
+  const {packageName, filename, entry, external, plugins, format} = bundle;
   return Promise.resolve()
     .then(() => rollup({
       entry,
@@ -74,7 +113,11 @@ const steps = bundles.map((bundle) => {
     }))
     .then((result) => result.write({
       format,
-      dest: path.resolve(__dirname, `../../lib/${filename}`),
+      // dest: path.resolve(__dirname, `../../lib/${filename}`),
+      dest: path.resolve(
+        __dirname,
+        `../../packages/${packageName}/lib/${filename}`
+      )
     }))
     .then(() => {
       console.log(chalk.green(`✅  ${filename}`));

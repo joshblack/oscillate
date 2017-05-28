@@ -1,12 +1,20 @@
 {
   "bundleSizes": {
-    "spectrum.development.js": {
-      "size": 21621,
-      "gzip": 4967
+    "oscillate.development.js": {
+      "size": 15034,
+      "gzip": 3626
     },
-    "spectrum.production.js": {
-      "size": 11222,
-      "gzip": 3221
+    "oscillate.production.js": {
+      "size": 7518,
+      "gzip": 2287
+    },
+    "oscillate-react.development.js": {
+      "size": 21858,
+      "gzip": 4989
+    },
+    "oscillate-react.production.js": {
+      "size": 11341,
+      "gzip": 3237
     }
   }
 }

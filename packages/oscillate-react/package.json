@@ -1,0 +1,24 @@
+{
+  "name": "oscillate-react",
+  "version": "0.1.0",
+  "description": "React bindings for Oscillate.",
+  "homepage": "https://github.com/joshblack/oscillate",
+  "bugs": "https://github.com/joshblack/oscillate/issues",
+  "license": "MIT",
+  "files": [
+    "README.md",
+    "index.js",
+    "lib/"
+  ],
+  "main": "index.js",
+  "repository": "joshblack/oscillate",
+  "author": "Josh Black <joshblack@us.ibm.com>",
+  "dependencies": {
+    "fbjs": "^0.8.9"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.5.8",
+    "react": "^15.4.2",
+    "oscillate": "^0.1.0"
+  }
+}

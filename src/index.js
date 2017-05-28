@@ -1,8 +1,5 @@
 /* @flow */
 
-import Query from './components/Query';
-import Queryable from './components/Queryable';
-import Environment from './environment/SpectrumEnvironment';
-import EnvironmentProvider from './components/EnvironmentProvider';
-
-export {Query, Queryable, Environment, EnvironmentProvider};
+export {default as Environment} from './environment/SpectrumEnvironment';
+export {default as NetworkLayer} from './network/NetworyLayer';
+export {default as Store} from './store/Store';

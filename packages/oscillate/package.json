@@ -1,0 +1,19 @@
+{
+  "name": "oscillate",
+  "version": "0.1.0",
+  "description": "A data-fetching library for component-driven applications.",
+  "homepage": "https://github.com/joshblack/oscillate",
+  "bugs": "https://github.com/joshblack/oscillate/issues",
+  "license": "MIT",
+  "files": [
+    "README.md",
+    "index.js",
+    "lib/"
+  ],
+  "main": "index.js",
+  "repository": "joshblack/oscillate",
+  "author": "Josh Black <joshblack@us.ibm.com>",
+  "dependencies": {
+    "fbjs": "^0.8.9"
+  }
+}
