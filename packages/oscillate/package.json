@@ -1,6 +1,6 @@
 {
   "name": "oscillate",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A data-fetching library for component-driven applications.",
   "homepage": "https://github.com/joshblack/oscillate",
   "bugs": "https://github.com/joshblack/oscillate/issues",
