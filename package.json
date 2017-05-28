@@ -106,7 +106,8 @@
       "react/require-default-props": 0,
       "react/prefer-stateless-function": 0,
       "import/named": 0,
-      "import/prefer-default-export": 0
+      "import/prefer-default-export": 0,
+      "import/no-extraneous-dependencies": 0
     }
   },
   "jest": {
