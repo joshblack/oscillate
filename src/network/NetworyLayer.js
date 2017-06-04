@@ -8,7 +8,7 @@ import type {
   NetworkMutationType,
 } from './NetworkTypes';
 
-const SpectrumNetworkLayer: NetworkLayer = {
+const DefaultNetworkLayer: NetworkLayer = {
   sendQuery(networkQuery: NetworkQueryType): Promise<mixed> {
     return fetch(networkQuery.uri, {
       method: 'GET',
@@ -51,4 +51,4 @@ const SpectrumNetworkLayer: NetworkLayer = {
   },
 };
 
-export default SpectrumNetworkLayer;
+export default DefaultNetworkLayer;
