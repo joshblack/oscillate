@@ -2,30 +2,30 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import SpectrumEnvironment from '../environment/SpectrumEnvironment';
+import Environment from '../environment/Environment';
 
 type Props = {|
-  environment?: SpectrumEnvironment,
+  environment?: Environment,
   children?: React$Element<*>,
 |};
 
 export default class EnvironmentProvider extends React.Component<*, Props, *> {
   // eslint-disable-next-line react/sort-comp
-  _environment: SpectrumEnvironment;
+  _environment: Environment;
 
   static childContextTypes = {
-    spectrum: PropTypes.object,
+    oscillate: PropTypes.object,
   };
 
   constructor(props: Props) {
     super();
-    const environment = props.environment || new SpectrumEnvironment();
+    const environment = props.environment || new Environment();
     this._environment = environment;
   }
 
   getChildContext() {
     return {
-      spectrum: {
+      oscillate: {
         Environment: this._environment,
       },
     };

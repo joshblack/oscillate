@@ -1,7 +1,7 @@
 /* @flow */
 
 import type {Subscriber} from './StoreTypes';
-import type {Disposable} from '../environment/SpectrumEnvironmentTypes';
+import type {Disposable} from '../environment/EnvironmentTypes';
 
 export default class CacheEntry {
   _value: mixed;

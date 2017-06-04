@@ -2,19 +2,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import SpectrumEnvironment from '../environment/SpectrumEnvironment';
+import Environment from '../environment/Environment';
 
-import type {QueryConfig} from '../environment/SpectrumEnvironmentTypes';
+import type {QueryConfig} from '../environment/EnvironmentTypes';
 
 export default function createQueryContainer(
   QueryComponent: Class<React$Component<*, *, *>>,
   config: QueryConfig,
 ) {
-  SpectrumEnvironment.prefetch(config);
+  Environment.prefetch(config);
 
   return class QueryContainer extends React.Component {
     static contextTypes = {
-      spectrum: PropTypes.object,
+      oscillate: PropTypes.object,
     };
 
     state = {
@@ -22,8 +22,8 @@ export default function createQueryContainer(
     };
 
     componentWillMount() {
-      const {spectrum} = this.context;
-      const data = spectrum.Environment.peak(config);
+      const {oscillate} = this.context;
+      const data = oscillate.Environment.peak(config);
 
       this.setState({data});
     }

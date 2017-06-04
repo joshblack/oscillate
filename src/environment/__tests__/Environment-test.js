@@ -18,7 +18,7 @@ describe('Environment', () => {
 
     fetch = require('fbjs/lib/fetchWithRetries');
     Store = require('../../store/Store').default;
-    Environment = require('../SpectrumEnvironment').default;
+    Environment = require('../Environment').default;
     NetworkQuery = require('../../network/NetworkQuery');
 
     const store = new Store({
@@ -448,7 +448,7 @@ describe('Environment', () => {
 
   describe('#prefetch', () => {
     it('should add queries to the pendingQueries array', () => {
-      const {pendingQueries} = require('../SpectrumEnvironment');
+      const {pendingQueries} = require('../Environment');
       const query = NetworkQuery.create('/api/foo');
 
       expect(pendingQueries.length).toBe(0);
@@ -526,7 +526,7 @@ describe('Environment', () => {
     it('should flush the pendingQueries queue', async () => {
       const q0 = NetworkQuery.create('api/q0');
       const q1 = NetworkQuery.create('api/q1');
-      let {pendingQueries} = require('../SpectrumEnvironment');
+      let {pendingQueries} = require('../Environment');
 
       Environment.prefetch(q0);
       Environment.prefetch(q1);
@@ -545,7 +545,7 @@ describe('Environment', () => {
 
       await promise;
 
-      pendingQueries = require('../SpectrumEnvironment').pendingQueries;
+      pendingQueries = require('../Environment').pendingQueries;
       expect(pendingQueries.length).toBe(0);
     });
   });

@@ -14,7 +14,7 @@ describe('Queryable HOC', () => {
   beforeEach(() => {
     fetch = require('fbjs/lib/fetchWithRetries');
     Provider = require('../EnvironmentProvider').default;
-    Environment = require('../../environment/SpectrumEnvironment').default;
+    Environment = require('../../environment/Environment').default;
     Queryable = require('../Queryable').default;
 
     /* eslint-disable react/prop-types */

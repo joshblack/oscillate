@@ -1,9 +1,6 @@
 /* @flow */
 
-import type {
-  CacheConfig,
-  Disposable,
-} from '../environment/SpectrumEnvironmentTypes';
+import type {CacheConfig, Disposable} from '../environment/EnvironmentTypes';
 import type {
   NetworkQueryType,
   NetworkMutationType,
@@ -36,6 +33,6 @@ export interface Store {
 
   peak(key: string): mixed,
 
-  serialize(): string,
-  deserialize(source: string): void,
+  rehydrate(snapshot: string): void,
+  dehydrate(): string,
 }

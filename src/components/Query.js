@@ -5,10 +5,7 @@ import PropTypes from 'prop-types';
 import areEqual from 'fbjs/lib/areEqual';
 
 import type {URLParams} from '../url';
-import type {
-  CacheConfig,
-  Disposable,
-} from '../environment/SpectrumEnvironmentTypes';
+import type {CacheConfig, Disposable} from '../environment/EnvironmentTypes';
 
 const primitiveTypes = [PropTypes.bool, PropTypes.string, PropTypes.number];
 
@@ -50,7 +47,7 @@ export default class Query extends React.Component<*, Props, State> {
   };
 
   static contextTypes = {
-    spectrum: PropTypes.object,
+    oscillate: PropTypes.object,
   };
 
   static defaultProps = {
@@ -144,12 +141,12 @@ export default class Query extends React.Component<*, Props, State> {
     headers?: {[key: string]: string},
     cacheConfig?: CacheConfig,
   ): void => {
-    const {spectrum} = this.context;
+    const {oscillate} = this.context;
     if (this._handler) {
       this._handler.dispose();
     }
 
-    this._handler = spectrum.Environment.sendQuery({
+    this._handler = oscillate.Environment.sendQuery({
       path,
       params,
       cacheConfig,

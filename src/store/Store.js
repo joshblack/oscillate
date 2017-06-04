@@ -9,10 +9,7 @@ import type {
   NetworkQueryType,
   NetworkMutationType,
 } from '../network/NetworkTypes';
-import type {
-  CacheConfig,
-  Disposable,
-} from '../environment/SpectrumEnvironmentTypes';
+import type {CacheConfig, Disposable} from '../environment/EnvironmentTypes';
 
 type StoreConfig = {
   size?: number,

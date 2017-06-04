@@ -6,11 +6,11 @@ import * as NetworkMutation from '../network/NetworkMutation';
 import Store from '../store/Store';
 
 import type {
-  Environment,
+  Environment as EnvironmentInterface,
   Result,
   QueryConfig,
   MutationConfig,
-} from './SpectrumEnvironmentTypes';
+} from './EnvironmentTypes';
 
 type EnvironmentConfig = {
   store?: Store,
@@ -20,7 +20,7 @@ type EnvironmentConfig = {
 // eslint-disable-next-line import/no-mutable-exports
 export let pendingQueries = [];
 
-export default class SpectrumEnvironment implements Environment {
+export default class Environment implements EnvironmentInterface {
   _store: Store;
   _networkLayer: typeof NetworkLayer;
 

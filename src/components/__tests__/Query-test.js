@@ -9,7 +9,7 @@ describe('Query Component', () => {
   let fetch;
   let Query;
   let Environment;
-  let SpectrumEnvironment;
+  let OscillateEnvironment;
 
   const genResponse = data => ({
     json: () => Promise.resolve(data),
@@ -24,16 +24,14 @@ describe('Query Component', () => {
 
   beforeEach(() => {
     jest.resetModules();
-    // jest.mock('../../environment/SpectrumEnvironment');
 
     Query = require('../Query').default;
     Environment = require('../EnvironmentProvider').default;
-    SpectrumEnvironment = require('../../environment/SpectrumEnvironment')
-      .default;
+    OscillateEnvironment = require('../../environment/Environment').default;
     fetch = require('fbjs/lib/fetchWithRetries');
     context = {
-      spectrum: {
-        Environment: new SpectrumEnvironment(),
+      oscillate: {
+        Environment: new OscillateEnvironment(),
       },
     };
   });
