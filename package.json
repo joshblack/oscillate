@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf lib && node scripts/rollup/build.js",
+    "build": "node scripts/rollup/build.js",
     "commitmsg": "validate-commit-msg",
     "dev": "rimraf lib && babel -w -d lib --ignore=\"**/__tests__/**,**/__mocks__/**\" src",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
