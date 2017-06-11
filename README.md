@@ -1,4 +1,4 @@
-# `oscillate` [![Build Status](https://travis-ci.org/joshblack/spectrum.svg?branch=master)](https://travis-ci.org/joshblack/spectrum)
+# `oscillate` [![Build Status](https://travis-ci.org/joshblack/oscillate.svg?branch=master)](https://travis-ci.org/joshblack/oscillate)
 
 > Oscillate is an opinionated data-layer for component-based applications that
 > leverage traditional API calls for satisfying their data needs.
