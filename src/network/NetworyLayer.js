@@ -16,7 +16,7 @@ const DefaultNetworkLayer: NetworkLayer = {
       headers: {
         Accepts: 'application/json',
         'Content-Type': 'application/json',
-        ...networkQuery,
+        ...networkQuery.headers,
       },
     }).then(response => {
       if (response.status < 200 || response.status >= 300) {
@@ -36,7 +36,7 @@ const DefaultNetworkLayer: NetworkLayer = {
       headers: {
         Accepts: 'application/json',
         'Content-Type': 'application/json',
-        ...networkQuery,
+        ...networkQuery.headers,
       },
     }).then(response => {
       if (response.status < 200 || response.status >= 300) {
