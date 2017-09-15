@@ -1,20 +1,20 @@
 {
   "bundleSizes": {
     "oscillate.development.js": {
-      "size": 14916,
-      "gzip": 3612
+      "size": 15472,
+      "gzip": 3705
     },
     "oscillate.production.js": {
-      "size": 7446,
-      "gzip": 2272
+      "size": 7932,
+      "gzip": 2365
     },
     "oscillate-react.development.js": {
-      "size": 21818,
-      "gzip": 4993
+      "size": 22490,
+      "gzip": 5107
     },
     "oscillate-react.production.js": {
-      "size": 11337,
-      "gzip": 3237
+      "size": 11915,
+      "gzip": 3363
     }
   }
 }

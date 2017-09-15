@@ -16,8 +16,8 @@ const external = [
 const babelConfig = {
   babelrc: false,
   presets: [['es2015', {modules: false}], 'stage-2', 'react', 'flow'],
-  plugins: ['external-helpers'],
-  externalHelpers: true,
+  plugins: ['transform-runtime'],
+  runtimeHelpers: true,
 };
 
 const oscillateEntry = path.resolve(__dirname, '../../src/index.js');
